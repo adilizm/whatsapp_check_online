@@ -1,0 +1,27 @@
+from selenium import webdriver
+
+import time
+
+PATH = "C:\Program Files (x86)\chromedriver.exe"
+
+driver = webdriver.Chrome(PATH)
+link = 'https://web.whatsapp.com/send?phone=' + input("Enter phone to check : ") + '&text&app_absent=0'
+print(link)
+time.sleep(1)
+driver.get(link)
+
+while True:
+    try:
+        online = driver.find_element_by_css_selector("span[title='en ligne']")
+        print('online')
+    except:
+        try:
+            is_chat_open = driver.find_element_by_class_name("Ui--U")
+            print('Getting the chat')
+            driver.get(link)
+        except:
+            time.sleep(1)
+        print('offline')
+    time.sleep(6)
+
+
